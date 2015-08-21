@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/.  -->
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!-- Title is set in conversation.js -->
+    <title>通话</title>
+<!--     <link rel="stylesheet" type="text/css" href="./webRTC/css/schwing.css"> -->
+    <link rel="stylesheet" type="text/css" href="./webRTC/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./webRTC/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./webRTC/css/common.css">
+    <link rel="stylesheet" type="text/css" href="./webRTC/css/conversation.css">
+</head>
+
+<body class="fx-embedded">
+    <div id="messages"></div>
+    <div id="main">
+        <div class="room-invitation-overlay">
+            <form id="form" autocomplete="off">
+                <!--是否注册-->
+                <div class="section-title" locale="LANG3015" style="display: none">Need Registration</div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label">&nbsp;</div>
+                    <div class="field-content">
+                        <label align="center" id="txtRegStatus"></label>
+                    </div>
+                </div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label" glabel="@LANG4230" tooltip="@LANG4231">Account Name:</div>
+                    <div class="field-content">
+                        <input type="text" id="txtDisplayName" value="" />
+                    </div>
+                </div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label" glabel="@LANG85" tooltip="@LANG1064">Extension:</div>
+                    <div class="field-content">
+                        <input type="text" id="txtPrivateIdentity" name="txtPrivateIdentity" value="" />
+                    </div>
+                </div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label" glabel="@LANG4232" tooltip="@LANG4233">Public Identity:</div>
+                    <div class="field-content">
+                        <input type="text" id="txtPublicIdentity" name="txtPublicIdentity" value="" />
+                    </div>
+                </div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label" glabel="@LANG73" tooltip="@LANG1076">Password:</div>
+                    <div class="field-content">
+                        <input type="password" id="txtPassword" value="" />
+                    </div>
+                </div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label" glabel="@LANG4234" tooltip="@LANG4235">Realm:</div>
+                    <div class="field-content">
+                        <input type="text" id="txtRealm" name="txtRealm" value="" />
+                    </div>
+                </div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label">&nbsp;</div>
+                    <div class="field-content">
+                        <button type="button" class="btn btn-cancel" id="btnUnRegister" locale="LANG726" disabled onclick='sipUnRegister();'>Cancel</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-save" id="btnRegister" locale="LANG1892" disabled onclick='sipRegister();'>Register</button>
+                    </div>
+                </div>
+                <!--/是否注册-->
+                <!--呼叫控制-->
+                <div class="section-title" locale="LANG4228" style="display: none">Call Control</div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label">&nbsp;</div>
+                    <div class="field-content">
+                        <label align="center" id="txtCallStatus"></label>
+                    </div>
+                </div>
+                <div class="field-cell" style="display: none">
+                    <div class="field-label" glabel="@LANG4236" tooltip="@LANG4237">Dial Number:</div>
+                    <div class="field-content">
+                        <input type="text" id="txtPhoneNumber" value="2016" />
+                    </div>
+                </div>
+                <!--/呼叫控制-->
+        </div>
+        <div class="room-conversation-wrapper">
+            <div class="video-layout-wrapper">
+                <div id="divCallCtrl" class="media nested">
+                    <div id="divVideo" class='div-video'>
+                        <div id="divVideoRemote" class="video_wrapper remote_wrapper" style='z-index: 9000'>
+                            <video class="video" width="100%" height="100%" id="video_remote" autoplay="autoplay"></video>
+                        </div>
+                        <div id="divVideoLocalWrapper" class="local local-stream local-stream-audio room-preview">
+                            <!-- <iframe class="previewvideo" style="border:0px solid #009; z-index: 1000"> </iframe> -->
+                            <div id="divVideoLocal" class="previewvideo" style=' border:0px solid #009; z-index: 9000'>
+                                <video class="video" width="100%" height="100%" id="video_local" autoplay="autoplay" muted="true">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="screen hide"></div>
+                    </div>
+                </div>
+                <ul class="conversation-toolbar">
+                    <li class="conversation-toolbar-btn-box">
+                        <button type="button" id="btnAudio" class="btn btn-audio" onclick='sipCall("call-audio");' title="Audio"></button>
+                    </li>
+                    <li class="conversation-toolbar-btn-box">
+                        <button type="button" id="btnVideo" class="btn btn-video" onclick='sipCall("call-audiovideo");' title="Video"></button>
+                    </li>
+                    <li class="conversation-toolbar-btn-box">
+                        <button type="button" id="btnMute" class="btn btn-unmute hide" title="Unmute" value="Unmute" onclick='sipToggleMute();' disabled=true></button>
+                    </li>
+                    <li class="conversation-toolbar-btn-box">
+                        <button type="button" id="btnHoldResume" class="btn btn-hold hide" title="Hold" value="Hold" onclick='sipToggleHoldResume();' disabled=true></button>
+                    </li>
+                    <li class="conversation-toolbar-btn-box">
+                        <button type="button" class="btn btn-transfer hide" title="Transfer" id="btnTransfer" value="Transfer" onclick='sipTransfer();' disabled=true></button>
+                    </li>
+                    <li class="conversation-toolbar-btn-box">
+                        <button type="button" class="btn btn-keypad hide" title="Keypad" id="btnKeyPad" value="KeyPad" onclick='openKeyPad();' disabled=true></button>
+                    </li>
+                    <li class="conversation-toolbar-btn-box btn-hangup-entry">
+                        <button type="button" id="btnHangUp" class="btn btn-hangup" title="hangup" onclick='sipHangUp();' disabled=true>Hangup</button>
+                    </li>                  
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Glass Panel -->
+    <div id='divGlassPanel' class='glass-panel' style='visibility:hidden'></div>
+    <!-- KeyPad Div -->
+    <div id='divKeyPad' class='span2 well div-keypad' style="position: absolute; left:0px; top:50px; width:180; height:240; z-index: 12000; visibility:hidden;">
+        <table style="width: 100%; height: 100%">
+            <tr>
+                <td>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('1');">1</button>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('2');">2<br/>ABC</button>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('3');">3<br/>DEF</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('4');">4<br/>GHI</button>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('5');">5<br/>JKL</button>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('6');">6<br/>MNO</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('7');">7<br/>PQRS</button>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('8');">8<br/>TUV</button>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('9');">9<br/>WXYZ</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('*');">*</button>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('0');">0<br/>OPER</button>
+                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('#');">#</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=3>
+                    <button type="button" style="width: 100%; height: 32px;margin-bottom: 5px;" class="btn btn-medium btn-danger" onclick="closeKeyPad();" >close</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="callStatus" style="position: absolute; top: 200px; left: 200px;z-index: 12000; display:none;"><img id="callStatusMsg" src="puff.svg" width="100" alt=""></div>
+    <!-- Audios -->
+    <audio id="audio_remote" autoplay="autoplay" />
+    <audio id="ringtone" loop src="./webRTC/sounds/ringtone.wav" />
+    <audio id="ringbacktone" loop src="./webRTC/sounds/ringbacktone.wav" />
+    <audio id="dtmfTone" src="./webRTC/sounds/dtmf.wav" />
+    </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="./webRTC/js/bootstrap/jquery.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-alert.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-scrollspy.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-button.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-collapse.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-carousel.js"></script>
+    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-typeahead.js"></script>
+    <script type="text/javascript" src="./webRTC/js/SIPml-api.js"></script>
+    <script type="text/javascript" src="./webRTC/js/webRTC.js"></script>
+</body>
+
+</html>

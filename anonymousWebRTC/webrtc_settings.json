@@ -1,0 +1,8 @@
+{
+	"realm": "Grandstream",
+	"impi": "Anonymous",
+	"impu": "sip:anonymous@anonymous.invalid",
+	"display_name": "Visitor",
+	"phone_number": "WebRTC",
+	"websocket_proxy_url": "ws://54.223.226.88:30000/ws"
+}
