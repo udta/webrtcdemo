@@ -8,11 +8,15 @@
 		init: function() {
 			var me = this;
 			if ($("#anonymousWebRTC").length > 0) {
+				// $("#anonymousWebRTC").css({
+				// 	width: "500px",
+				// 	height: "480px"
+				// });
 				$("#anonymousWebRTC").show();
-				// var mWindow = top.frames['frameDialog'];
-				// if (mWindow.sipRegister) {					
-				// 	mWindow.sipRegister();
-				// }
+				// 	// var mWindow = top.frames['frameDialog'];
+				// 	// if (mWindow.sipRegister) {					
+				// 	// 	mWindow.sipRegister();
+				// 	// }
 				return;
 			}
 			//CSS for anonymousWebRTC
@@ -30,7 +34,7 @@
 				// '#rLeft{ left: -4px;top: 50%;margin-top: -4px;}' +
 				// '#rUp{ top: -4px;left: 50%; margin-left: -4px;}' +
 				// '#rDown{ bottom: -4px;left: 50%;margin-left: -4px;}' +
-				'#anonymousWebRTC { display: none;}' +
+				'#anonymousWebRTC { display: none; z-index: 9999;}' +
 				'#anonymousWebRTC .ul-style{ list-style: none; margin: 0; padding: 0; border: 0;font-size: 100%;font: inherit;vertical-align: baseline;box-sizing: border-box;height: 28px; cursor: pointer; cursor: hand;}' +
 				'#anonymousWebRTC .ul-style li { float: right; height: 28px;}' +
 				'#anonymousWebRTC .btn{ width: 28px; height: 28px; display: inline-block; margin: 0; padding: 0; outline：none; border: none; background: #2B2118; background-position: center; background-repeat: no-repeat; color: #fff; text-align: center; text-decoration: none; font-size: .9em; cursor: pointer;}' +
@@ -58,8 +62,8 @@
 				position: "fixed",
 				bottom: "5px",
 				right: 0,
-				width: "auto",
-				height: "auto",
+				width: "500px",
+				height: "480px",
 				marginTop: "-104px"
 			}).appendTo("body");
 			// $("<div id='rRightDown'>").appendTo(anonymousWebRTC);
@@ -87,8 +91,8 @@
 			$("<iframe>").attr({
 				id: "frameDialog",
 				name: "frameDialog",
-				width: "500px",
-				height: "480px",
+				width: "100%",
+				height: "100%",
 				scrolling: "no",
 				marginwidth: "0",
 				marginheight: "0",
@@ -100,23 +104,39 @@
 				$("#anonymousWebRTC").hide();
 			});
 			narrowBtn.click(function(event) {
-				$("#frameDialog").slideToggle(200);
-			});
-			largeBtn.click(function(event) {
-				if (flag) {
-					flag = false;
-					$("#frameDialog").attr({
-						width: "600px",
-						height: "600px"
-					});
-				} else {
+				//$("#frameDialog").slideToggle(200);
+				var mWindow = top.frames['frameDialog'];
+				if (!flag) {
 					flag = true;
-					$("#frameDialog").attr({
+					$("#anonymousWebRTC").css({
 						width: "500px",
 						height: "480px"
 					});
+					$("#callStatus", mWindow.document).css("top", "200px");
+				} else {
+					flag = false;
+					$("#anonymousWebRTC").css({
+						width: "100%",
+						height: "100%"
+					});
+					$("#callStatus", mWindow.document).css("top", "300px");
 				}
 			});
+			// largeBtn.click(function(event) {
+			// 	if (flag) {
+			// 		flag = false;
+			// 		$("#frameDialog").attr({
+			// 			width: "600px",
+			// 			height: "600px"
+			// 		});
+			// 	} else {
+			// 		flag = true;
+			// 		$("#frameDialog").attr({
+			// 			width: "500px",
+			// 			height: "480px"
+			// 		});
+			// 	}
+			// });
 
 			// var rs = new Resize("anonymousWebRTC", {
 			// 	Max: true,

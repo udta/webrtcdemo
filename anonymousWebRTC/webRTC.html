@@ -86,10 +86,10 @@
         </div>
         <div class="room-conversation-wrapper">
             <div class="video-layout-wrapper">
-                <div id="divCallCtrl" class="media nested">
-                    <div id="divVideo" class='div-video'>
+                <div id="divCallCtrl" class="" style="position: absolute; top: 32px; width: 100%;height:100%;">
+                    <div id="divVideo" class='div-video' style="width: 100%;height:100%;">
                         <div id="divVideoRemote" class="video_wrapper remote_wrapper" style='z-index: 9000'>
-                            <video class="video" width="100%" height="100%" id="video_remote" autoplay="autoplay"></video>
+                            <video class="video" id="video_remote" autoplay="autoplay" style="height:100%;"></video>
                         </div>
                         <div id="divVideoLocalWrapper" class="local local-stream local-stream-audio room-preview">
                             <!-- <iframe class="previewvideo" style="border:0px solid #009; z-index: 1000"> </iframe> -->
@@ -167,7 +167,7 @@
             </tr>
         </table>
     </div>
-    <div id="callStatus" style="position: absolute; top: 200px; left: 200px;z-index: 12000; display:none;"><img id="callStatusMsg" src="puff.svg" width="100" alt=""></div>
+    <div id="callStatus" style="position: absolute; top: 200px; z-index: 12000; width: 100%; text-align: center; display: none;"><img id="callStatusMsg" src="puff.svg" width="100" alt=""></div>
     <!-- Audios -->
     <audio id="audio_remote" autoplay="autoplay" />
     <audio id="ringtone" loop src="./webRTC/sounds/ringtone.wav" />

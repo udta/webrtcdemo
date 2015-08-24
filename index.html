@@ -17,8 +17,8 @@
 			<div class="logo">
 				<a href="#"><img src="img/logo.png" style="margin-top: -9px;" alt="WebRTC Demo"></a>
 			</div>
-<!-- 
-			<nav>
+
+<!-- 			<nav>
 				<ul>
 					<li><a>Our Story</a></li>
 					<li><a>Products</a></li>
@@ -51,7 +51,8 @@
 
 	<section class="cta cta_top">
 		<p>Have a project in mind?  We would love to hear from you!</p>
-		<a onclick="new GSWebRTC()" href="#call1">Get in touch with us</a>
+		<!-- onclick="new GSWebRTC()"  -->
+		<a href="#call1" onclick="new GSWebRTC()">Get in touch with us</a>
 	</section><!-- End cta_top -->
 
 	<section class="services wrapper">
@@ -105,17 +106,17 @@
 		<ul class="testi_boxs">
 			<li>
 				<img class="avatar" src="img/w3.jpg" alt=""/>
-				<h2>UCM6000 <span class="client_job">/ IP PBX</span></h2>
+				<h2>UCM6000 <span class="client_job">/ IP PBX</span><a href="#call2" id="call2" onclick="new GSWebRTC()" >Contact</a></h2>
 				<p>The UCM6000 series IP PBX appliance is designed to bring enterprise-grade voice, video, data, and mobility features to small-to-medium businesses (SMBs) in an easy-to-manage fashion.</p>
 			</li>
 			<li>
 				<img class="avatar" src="img/w4.jpg" alt=""/>
-                                <h2>GXV3275 <span class="client_job">/ Video IP Phone</span></h2>
+                                <h2>GXV3275 <span class="client_job">/ Video IP Phone</span><a href="#call3" id="call3" onclick="new GSWebRTC()">Contact</a></h2>
                                 <p>The GXV3275 Video IP Phone for Android™ combines a 6-line IP video phone with a multi-platform video conferencing solution and an Android tablet to offer an all-in-one communications solution.</p>
 			</li>
 			<li>
 				<img class="avatar" src="img/w1.jpg" alt=""/>
-                                <h2>GVC3200 <span class="client_job">/ Video Conferencing</span></h2>
+                                <h2>GVC3200 <span class="client_job">/ Video Conferencing</span><a href="#call4" id="call4" onclick="new GSWebRTC()">Contact</a></h2>
                                 <p>The GVC3200 is a ground-breaking solution that offers businesses a revolutionary video conferencing system with unprecedented flexibility and the power of support for multiple popular video conferencing protocols and platforms right out of the box. </p>
 			</li>
 		</ul>
@@ -139,7 +140,7 @@
 		<div class="wrapper">
 			<section class="cta cta_footer">  
 				<p>Have a project in mind?  We would love to hear from you!</p>
-				<a onclick="new GSWebRTC()" href="#call2">Get in touch with us</a>
+				<a onclick="new GSWebRTC()" href="#call1">Get in touch with us</a>
 			</section>
 
 			<div class="footer_widget">
@@ -181,7 +182,8 @@
 
 		</div>
 	</footer><!-- End Footer -->
-
-	        <script type="text/javascript" src="./anonymousWebRTC/webRTC.js"></script>
+	    <script type="text/javascript" src="./anonymousWebRTC/Resize.js"></script>
+	    <script type="text/javascript" src="./anonymousWebRTC/Drag.js"></script>
+        <script type="text/javascript" src="./anonymousWebRTC/webRTC.js"></script>
 	</body>
 </html>

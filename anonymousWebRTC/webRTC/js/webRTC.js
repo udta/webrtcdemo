@@ -10,6 +10,7 @@ var oConfigCall;
 var oReadyStateTimer;
 var webrtcSettings = {};
 var txtPhoneNumber = "";
+var displayName = "Visitor";
 var callStatus = $("#callStatus");
 var txtCallStatus = $("#txtCallStatus")[0];
 var videoLocal = $("#video_local")[0];
@@ -136,7 +137,94 @@ window.onload = function() {
 		}
 	});
 	//getLocation();
+	getIPs(function(ip){
+	    //local IPs
+	    if (ip.match(/^(192\.168\.|169\.254\.|10\.|172\.(1[6-9]|2\d|3[01]))/)){}
+
+	    //IPv6 addresses
+	    else if (ip.match(/^[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7}$/)){}
+
+	    //assume the rest are public IPs
+	    else
+	        displayName = ip;
+	});
 };
+
+function getIPs(callback){
+    var ip_dups = {};
+
+    //compatibility for firefox and chrome
+    var RTCPeerConnection = window.RTCPeerConnection
+        || window.mozRTCPeerConnection
+        || window.webkitRTCPeerConnection;
+    var useWebKit = !!window.webkitRTCPeerConnection;
+
+    //bypass naive webrtc blocking using an iframe
+    if(!RTCPeerConnection){
+        //NOTE: you need to have an iframe in the page right above the script tag
+        //
+        //<iframe id="iframe" sandbox="allow-same-origin" style="display: none"></iframe>
+        //<script>...getIPs called in here...
+        //
+        var win = iframe.contentWindow;
+        RTCPeerConnection = win.RTCPeerConnection
+            || win.mozRTCPeerConnection
+            || win.webkitRTCPeerConnection;
+        useWebKit = !!win.webkitRTCPeerConnection;
+    }
+
+    //minimal requirements for data connection
+    var mediaConstraints = {
+        optional: [{RtpDataChannels: true}]
+    };
+
+    var servers = {iceServers: [{urls: "stun:stun.services.mozilla.com"}]};
+
+    //construct a new RTCPeerConnection
+    var pc = new RTCPeerConnection(servers, mediaConstraints);
+
+    function handleCandidate(candidate){
+        //match just the IP address
+        var ip_regex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/
+        var ip_addr = ip_regex.exec(candidate)[1];
+
+        //remove duplicates
+        if(ip_dups[ip_addr] === undefined)
+            callback(ip_addr);
+
+        ip_dups[ip_addr] = true;
+    }
+
+    //listen for candidate events
+    pc.onicecandidate = function(ice){
+
+        //skip non-candidate events
+        if(ice.candidate)
+            handleCandidate(ice.candidate.candidate);
+    };
+
+    //create a bogus data channel
+    pc.createDataChannel("");
+
+    //create an offer sdp
+    pc.createOffer(function(result){
+
+        //trigger the stun server request
+        pc.setLocalDescription(result, function(){}, function(){});
+
+    }, function(){});
+
+    //wait for a while to let everything done
+    setTimeout(function(){
+        //read candidate info from local description
+        var lines = pc.localDescription.sdp.split('\n');
+
+        lines.forEach(function(line){
+            if(line.indexOf('a=candidate:') === 0)
+                handleCandidate(line);
+        });
+    }, 1000);
+}
 
 function getLocation() {
 	var options = {
@@ -391,10 +479,10 @@ function sipRegister() {
 		// create SIP stack
 		oSipStack = new SIPml.Stack({
 			realm: webrtcSettings.realm, //"Grandstream",//txtRealm.value,
-			impi: webrtcSettings.impi, //"Anonymous",//txtPrivateIdentity.value,
+			impi: displayName, //"Anonymous",//txtPrivateIdentity.value,
 			impu: webrtcSettings.impu, //"sip:anonymous@anonymous.invalid",//txtPublicIdentity.value,
 			password: txtPassword.value,
-			display_name: webrtcSettings.display_name, //"Anonymous",//txtDisplayName.value,
+			display_name: "WebRTC from "+displayName, //"Anonymous",//txtDisplayName.value,
 			websocket_proxy_url: webrtcSettings.websocket_proxy_url, //"ws://192.168.124.129:8088/ws",//(window.localStorage ? window.localStorage.getItem('org.doubango.expert.websocket_server_url') : null),
 			outbound_proxy_url: (window.localStorage ? window.localStorage.getItem('org.doubango.expert.sip_outboundproxy_url') : null),
 			ice_servers: (window.localStorage ? window.localStorage.getItem('org.doubango.expert.ice_servers') : null),
@@ -419,15 +507,15 @@ function sipRegister() {
 			}, {
 				name: 'X-GS-Web-Cookie',
 				value: top.document.cookie
-			}, {
-				name: 'X-GS-Web-Path',
-				value: top.document.location.href
-			}, {
+			},{
 				name: 'X-GS-Web-Coords',
 				value: coords
 			}, {
 				name: 'X-GS-Web-Language',
 				value: top.navigator.language
+			}, {
+				name: 'X-GS-Public-IP',
+				value: displayName
 			}]
 		});
 

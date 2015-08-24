@@ -569,3 +569,22 @@ p.rights a{
     font-family: 'open_bold', arial;
     font-weight: bold;
 }
+#call2, #call3, #call4 {
+    position: relative;
+    left: 10px;
+    background: #e61c42;
+    color: #fff;
+    margin: 0;
+    padding: 3;
+    font-size: 100%;
+    vertical-align: baseline;
+    color: #ffffff;
+    /* float: right; */
+    padding: 3px 3px;
+    text-decoration: none;
+    font-family: 'open_regular', arial;
+    font-size: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 20px 40px 0 0;
+}
