@@ -131,42 +131,44 @@
     <!-- Glass Panel -->
     <div id='divGlassPanel' class='glass-panel' style='visibility:hidden'></div>
     <!-- KeyPad Div -->
-    <div id='divKeyPad' class='span2 well div-keypad' style="position: absolute; left:0px; top:50px; width:180; height:240; z-index: 12000; visibility:hidden;">
-        <table style="width: 100%; height: 100%">
-            <tr>
-                <td>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('1');">1</button>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('2');">2<br/>ABC</button>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('3');">3<br/>DEF</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('4');">4<br/>GHI</button>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('5');">5<br/>JKL</button>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('6');">6<br/>MNO</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('7');">7<br/>PQRS</button>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('8');">8<br/>TUV</button>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('9');">9<br/>WXYZ</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('*');">*</button>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('0');">0<br/>OPER</button>
-                    <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('#');">#</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan=3>
-                    <button type="button" style="width: 100%; height: 32px;margin-bottom: 5px;" class="btn btn-medium btn-danger" onclick="closeKeyPad();" >close</button>
-                </td>
-            </tr>
-        </table>
+    <div style="position: absolute; top: 200px; width: 100%; text-align: center;">
+        <div id='divKeyPad' class='span2 well div-keypad' style="width:180px; height:240px; z-index: 12001; visibility:hidden;">
+            <table style="width: 100%; height: 100%">
+                <tr>
+                    <td>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('1');">1</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('2');">2<br/>ABC</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('3');">3<br/>DEF</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('4');">4<br/>GHI</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('5');">5<br/>JKL</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('6');">6<br/>MNO</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('7');">7<br/>PQRS</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('8');">8<br/>TUV</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('9');">9<br/>WXYZ</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('*');">*</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('0');">0<br/>OPER</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('#');">#</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=3>
+                        <button type="button" style="width: 100%; height: 32px;margin-bottom: 5px;" class="btn btn-medium btn-danger" onclick="closeKeyPad();" >close</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div id="callStatus" style="position: absolute; top: 200px; z-index: 12000; width: 100%; text-align: center; display: none;"><img id="callStatusMsg" src="./webRTC/images/puff.svg" width="100" alt=""></div>
     <!-- Audios -->

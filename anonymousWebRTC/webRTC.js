@@ -86,8 +86,8 @@
 			}).appendTo(anonymousWebRTC);
 
 			var titleUl = $("<ul>").addClass("ul-style").appendTo(title);
-			var minisizeLi = $("<li>").appendTo(titleUl);
 			var closeLi = $("<li>").appendTo(titleUl);
+			var minisizeLi = $("<li>").appendTo(titleUl);
 
 			var minisizeBtn = $("<button>").addClass("btn btn-maxsize").appendTo(minisizeLi);
 			var closeBtn = $("<button>").addClass("btn btn-close").appendTo(closeLi);

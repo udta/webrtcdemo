@@ -41,7 +41,7 @@ window.onload = function() {
 		type: "GET",
 		url: "./webrtc_settings.json",
 		dataType: "json",
-		async: false,
+		async: true,
 		success: function(data) {
 			webrtcSettings = data;
 			txtPhoneNumber = data.phone_number;
@@ -105,14 +105,57 @@ window.onload = function() {
 		// tsk_utils_log_info(_rinningApps);
 	};
 
-	oReadyStateTimer = setInterval(function() {
-		if (document.readyState === "complete") {
-			clearInterval(oReadyStateTimer);
-			// initialize SIPML5
-			preInit();
-			sipRegister();
+	$.ajax({
+		type: 'get',
+		url: 'http://ip-api.com/json',
+		dataType: 'jsonp',
+		jsonp: "callback",
+		async: true,
+		success: function(data) {
+			if (data) {
+				displayName = data.query;
+				coords = {
+					"lat": data.lat,
+					"lon": data.lon
+				};
+				country = data.country;
+				countryCode = data.countryCode;
+				as = data.as;
+				city = data.city;
+				isp = data.isp;
+				regionName = data.regionName;
+				timezone = data.timezone;
+			}
+			oReadyStateTimer = setInterval(function() {
+				if (document.readyState === "complete") {
+					clearInterval(oReadyStateTimer);
+					// initialize SIPML5
+					preInit();
+					sipRegister();
+				}
+			}, 500);
+			//alert(JSON.stringify(data));
+		},
+		error: function() {
+			oReadyStateTimer = setInterval(function() {
+				if (document.readyState === "complete") {
+					clearInterval(oReadyStateTimer);
+					// initialize SIPML5
+					preInit();
+					sipRegister();
+				}
+			}, 500);
 		}
-	}, 500);
+	});
+
+	// oReadyStateTimer = setInterval(function() {
+	// 	if (document.readyState === "complete") {
+	// 		clearInterval(oReadyStateTimer);
+	// 		// initialize SIPML5
+	// 		preInit();
+	// 		sipRegister();
+	// 	}
+	// }, 500);
 
 	// if (document.readyState === "complete") {
 	//     preInit();
@@ -154,29 +197,6 @@ window.onload = function() {
 	//     else
 	//         displayName = ip;
 	// });
-	$.ajax({
-		type: 'get',
-		url: 'http://ip-api.com/json',
-		dataType: 'jsonp',
-		jsonp: "callback",
-		success: function(data) {
-			if (data) {
-				displayName = data.query;
-				coords = {
-					"lat": data.lat,
-					"lon": data.lon
-				};
-				country = data.country;
-				countryCode = data.countryCode;
-				as = data.as;
-				city = data.city;
-				isp = data.isp;
-				regionName = data.regionName;
-				timezone = data.timezone;
-			}
-			//alert(JSON.stringify(data));
-		}
-	});
 };
 
 function getIPs(callback) {
@@ -1173,7 +1193,7 @@ function onSipEventSession(e /* SIPml.Session.Event */ ) {
 								$("#callStatusMsg").attr("src", "./webRTC/images/bars.svg");
 							}
 							//alert($("#video_local").attr("src"));
-							blertyPad.disabled = false;
+							btnKeyPad.disabled = false;
 						}
 					}
 					if (SIPml.isWebRtc4AllSupported()) { // IE don't provide stream callback
