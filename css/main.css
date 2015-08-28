@@ -569,7 +569,7 @@ p.rights a{
     font-family: 'open_bold', arial;
     font-weight: bold;
 }
-#call2, #call3, #call4 {
+.testi_boxs a {
     position: relative;
     left: 10px;
     background: #e61c42;
@@ -583,8 +583,7 @@ p.rights a{
     padding: 3px 3px;
     text-decoration: none;
     font-family: 'open_regular', arial;
-    font-size: 4px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin: 20px 40px 0 0;
 }

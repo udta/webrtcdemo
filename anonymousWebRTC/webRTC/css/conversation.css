@@ -251,7 +251,7 @@
 
 .fx-embedded .remote_wrapper {
     position: absolute;
-    /*top: 32px;*/
+    top: 134px;
     right: 0px;
     bottom: 0px;
     left: 0px;
@@ -1145,4 +1145,7 @@ input[type="submit"].btn.btn-mini {
     border-bottom-color: #ffffff;
     opacity: 0.75;
     filter: alpha(opacity=75);
+}
+.bgBlack {
+    background: black;
 }

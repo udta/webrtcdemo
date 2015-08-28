@@ -44,9 +44,15 @@
 				'#anonymousWebRTC .btn.btn-large{ background-image: url("./anonymousWebRTC/webRTC/images/large.png");}' +
 				'#anonymousWebRTC .btn.btn-large:hover{ background-image: url("./anonymousWebRTC/webRTC/images/large_hover.png");}' +
 				'#anonymousWebRTC .btn.btn-large:focus{ background-image: url("./anonymousWebRTC/webRTC/images/large_pressed.png");}' +
-				'#anonymousWebRTC .btn.btn-close{background-image: url("./anonymousWebRTC/webRTC/images/large.png");}' +
-				'#anonymousWebRTC .btn.btn-close:hover{background-image: url("./anonymousWebRTC/webRTC/images/large_hover.png");}' +
-				'#anonymousWebRTC .btn.btn-close:focus{background-image: url("./anonymousWebRTC/webRTC/images/large_pressed.png");}' +
+				'#anonymousWebRTC .btn.btn-maxsize{ background-image: url("./anonymousWebRTC/webRTC/images/maxsize.png");}' +
+				'#anonymousWebRTC .btn.btn-maxsize:hover{ background-image: url("./anonymousWebRTC/webRTC/images/maxsize_hover.png");}' +
+				'#anonymousWebRTC .btn.btn-maxsize:focus{ background-image: url("./anonymousWebRTC/webRTC/images/maxsize_pressed.png");}' +
+				'#anonymousWebRTC .btn.btn-minisize{ background-image: url("./anonymousWebRTC/webRTC/images/minisize.png");}' +
+				'#anonymousWebRTC .btn.btn-minisize:hover{ background-image: url("./anonymousWebRTC/webRTC/images/minisize_hover.png");}' +
+				'#anonymousWebRTC .btn.btn-minisize:focus{ background-image: url("./anonymousWebRTC/webRTC/images/minisize_pressed.png");}' +
+				'#anonymousWebRTC .btn.btn-close{background-image: url("./anonymousWebRTC/webRTC/images/close.png");}' +
+				'#anonymousWebRTC .btn.btn-close:hover{background-image: url("./anonymousWebRTC/webRTC/images/close_hover.png");}' +
+				'#anonymousWebRTC .btn.btn-close:focus{background-image: url("./anonymousWebRTC/webRTC/images/close_pressed.png");}' +
 				'</style>';
 			//CSS styles are only added once.
 			if ($('#css-anonymousWebRTC').length <= 0) {
@@ -60,7 +66,7 @@
 		render: function() {
 			var anonymousWebRTC = $("<div id='anonymousWebRTC'>").css({
 				position: "fixed",
-				bottom: "5px",
+				bottom: "35px",
 				right: 0,
 				width: "500px",
 				height: "480px",
@@ -80,12 +86,11 @@
 			}).appendTo(anonymousWebRTC);
 
 			var titleUl = $("<ul>").addClass("ul-style").appendTo(title);
+			var minisizeLi = $("<li>").appendTo(titleUl);
 			var closeLi = $("<li>").appendTo(titleUl);
-			var largeLi = $("<li>").appendTo(titleUl);
-			var narrowLi = $("<li>").appendTo(titleUl);
-			var narrowBtn = $("<button>-</button>").addClass("btn").appendTo(narrowLi);
-			// var largeBtn = $("<button>").addClass("btn btn-large").appendTo(largeLi);
-			var closeBtn = $("<button>x</button>").addClass("btn").appendTo(closeLi);
+
+			var minisizeBtn = $("<button>").addClass("btn btn-maxsize").appendTo(minisizeLi);
+			var closeBtn = $("<button>").addClass("btn btn-close").appendTo(closeLi);
 			var flag = true;
 
 			$("<iframe>").attr({
@@ -103,7 +108,7 @@
 			closeBtn.click(function(event) {
 				$("#anonymousWebRTC").hide();
 			});
-			narrowBtn.click(function(event) {
+			minisizeBtn.click(function(event) {
 				//$("#frameDialog").slideToggle(200);
 				var mWindow = top.frames['frameDialog'];
 				if (!flag) {
@@ -113,30 +118,20 @@
 						height: "480px"
 					});
 					$("#callStatus", mWindow.document).css("top", "200px");
+					$("#divVideoLocal", mWindow.document).removeClass("previewvideo-large");
+					//$("#divVideo", mWindow.document).attr("height", "100%").removeAttr("width");
+					minisizeBtn.addClass("btn-maxsize").removeClass("btn-minisize");
 				} else {
 					flag = false;
 					$("#anonymousWebRTC").css({
 						width: "100%",
-						height: "100%"
+						height: "96%"
 					});
 					$("#callStatus", mWindow.document).css("top", "300px");
+					//$("#divVideo", mWindow.document).attr("width", "100%").removeAttr("height");
+					minisizeBtn.addClass("btn-minisize").removeClass("btn-maxsize");
 				}
 			});
-			// largeBtn.click(function(event) {
-			// 	if (flag) {
-			// 		flag = false;
-			// 		$("#frameDialog").attr({
-			// 			width: "600px",
-			// 			height: "600px"
-			// 		});
-			// 	} else {
-			// 		flag = true;
-			// 		$("#frameDialog").attr({
-			// 			width: "500px",
-			// 			height: "480px"
-			// 		});
-			// 	}
-			// });
 
 			// var rs = new Resize("anonymousWebRTC", {
 			// 	Max: true,
