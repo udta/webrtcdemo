@@ -845,13 +845,13 @@ tmedia_session_jsep01.prototype.__get_lo = function () {
             o_iceServers = tmedia_session_jsep01.mozThis
                 ? [{ url: 'stun:23.21.150.121:3478'}, { url: 'stun:216.93.246.18:3478'}, { url: 'stun:66.228.45.110:3478'}, { url: 'stun:173.194.78.127:19302'}]
                 : [{ url: 'stun:stun.l.google.com:19302'}, { url: 'stun:stun.counterpath.net:3478'}, { url: 'stun:numb.viagenie.ca:3478'}];
-            o_iceServers = null;
         }
         try{ tsk_utils_log_info("ICE servers:" + JSON.stringify(o_iceServers)); } catch(e){}
-        this.o_pc = new __o_peerconnection_class(
+        /*this.o_pc = new __o_peerconnection_class(
                 (o_iceServers && !o_iceServers.length) ? null : { iceServers: o_iceServers }, // empty array is used to disable STUN/TURN.
                 this.o_media_constraints
-        );
+        );*/
+        this.o_pc = new __o_peerconnection_class( {iceServers: [{ url: 'stun: :3478'}] } );
         this.o_pc.onicecandidate = tmedia_session_jsep01.mozThis ? tmedia_session_jsep01.onIceCandidate : function (o_event) { tmedia_session_jsep01.onIceCandidate(o_event, This); };
         this.o_pc.onnegotiationneeded = tmedia_session_jsep01.mozThis ? tmedia_session_jsep01.onNegotiationNeeded : function (o_event) { tmedia_session_jsep01.onNegotiationNeeded(o_event, This); };
         this.o_pc.onsignalingstatechange = tmedia_session_jsep01.mozThis ? tmedia_session_jsep01.onSignalingstateChange : function (o_event) { tmedia_session_jsep01.onSignalingstateChange(o_event, This); };
