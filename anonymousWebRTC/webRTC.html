@@ -9,11 +9,11 @@
     <meta charset="utf-8">
     <!-- Title is set in conversation.js -->
     <title>通话</title>
-<!--     <link rel="stylesheet" type="text/css" href="./webRTC/css/schwing.css"> -->
-    <link rel="stylesheet" type="text/css" href="./webRTC/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="./webRTC/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="./webRTC/css/common.css">
-    <link rel="stylesheet" type="text/css" href="./webRTC/css/conversation.css">
+    <!-- <link rel="stylesheet" type="text/css" href="webRTC/css/schwing.css"> -->
+    <link rel="stylesheet" type="text/css" href="webRTC/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="webRTC/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="webRTC/css/common.css">
+    <link rel="stylesheet" type="text/css" href="webRTC/css/conversation.css">
 </head>
 
 <body class="fx-embedded">
@@ -70,12 +70,12 @@
                 <!--/是否注册-->
                 <!--呼叫控制-->
                 <div class="section-title" locale="LANG4228" style="display: none">Call Control</div>
-                <div class="field-cell" style="display: none">
+                <!-- <div class="field-cell" style="display: none">
                     <div class="field-label">&nbsp;</div>
                     <div class="field-content">
                         <label align="center" id="txtCallStatus"></label>
                     </div>
-                </div>
+                </div> -->
                 <div class="field-cell" style="display: none">
                     <div class="field-label" glabel="@LANG4236" tooltip="@LANG4237">Dial Number:</div>
                     <div class="field-content">
@@ -93,7 +93,7 @@
                             </video>
                         </div>
                         <div id="divVideoLocalWrapper" class="local local-stream local-stream-audio room-preview">
-                            <!-- <iframe class="previewvideo" style="border:0px solid #009; z-index: 1000"> </iframe> -->
+                            <!-- <iframe class="pareviewvideo" style="border:0px solid #009; z-index: 1000"> </iframe> -->
                             <div id="divVideoLocal" class="previewvideo" style=' border:0px solid #009; z-index: 9000'>
                                 <video class="video" width="100%" height="100%" id="video_local" autoplay="autoplay" muted="true">
                                 </video>
@@ -107,7 +107,7 @@
                         <button type="button" id="btnAudio" class="btn btn-audio" onclick='sipCall("call-audio");' title="Audio"></button>
                     </li>
                     <li class="conversation-toolbar-btn-box">
-                        <button type="button" id="btnVideo" class="btn btn-video" onclick='sipCall("call-audiovideo");' title="Video"></button>
+                        <button type="button" id="btnVideo" class="btn btn-video" onclick='sipCall("call-audiovideo");' title="Video" disabled=true></button>
                     </li>
                     <li class="conversation-toolbar-btn-box">
                         <button type="button" id="btnMute" class="btn btn-unmute hide" title="Unmute" value="Unmute" onclick='sipToggleMute();' disabled=true></button>
@@ -123,7 +123,7 @@
                     </li>
                     <li class="conversation-toolbar-btn-box btn-hangup-entry">
                         <button type="button" id="btnHangUp" class="btn btn-hangup" title="hangup" onclick='sipHangUp();' disabled=true>Hangup</button>
-                    </li>                  
+                    </li>
                 </ul>
             </div>
         </div>
@@ -137,59 +137,76 @@
                 <tr>
                     <td>
                         <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('1');">1</button>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('2');">2<br/>ABC</button>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('3');">3<br/>DEF</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('2');">2
+                            <br/>ABC</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('3');">3
+                            <br/>DEF</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('4');">4<br/>GHI</button>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('5');">5<br/>JKL</button>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('6');">6<br/>MNO</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('4');">4
+                            <br/>GHI</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('5');">5
+                            <br/>JKL</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('6');">6
+                            <br/>MNO</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('7');">7<br/>PQRS</button>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('8');">8<br/>TUV</button>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('9');">9<br/>WXYZ</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('7');">7
+                            <br/>PQRS</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('8');">8
+                            <br/>TUV</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('9');">9
+                            <br/>WXYZ</button>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('*');">*</button>
-                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('0');">0<br/>OPER</button>
+                        <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('0');">0
+                            <br/>OPER</button>
                         <button type="button" style="width: 31%; height: 32px;margin-bottom: 5px;" class="btn" onclick="sipSendDTMF('#');">#</button>
                     </td>
                 </tr>
                 <tr>
                     <td colspan=3>
-                        <button type="button" style="width: 100%; height: 32px;margin-bottom: 5px;" class="btn btn-medium btn-danger" onclick="closeKeyPad();" >close</button>
+                        <button type="button" style="width: 100%; height: 32px;margin-bottom: 5px;" class="btn btn-medium btn-danger" onclick="closeKeyPad();">close</button>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
-    <div id="callStatus" style="position: absolute; top: 200px; z-index: 12000; width: 100%; text-align: center; display: none;"><img id="callStatusMsg" src="./webRTC/images/puff.svg" width="100" alt=""></div>
+    <div id="callStatus" style="position: absolute; top: 200px; z-index: 12000; width: 100%; text-align: center;">
+        <label align="center" id="txtCallStatus"></label>
+        <br />
+        <textarea name="IM" id="IM" cols="2" rows="2"></textarea>
+        <br />
+        <input type="button" id="btnSendMessageCallee" style="margin: 0; vertical-align:middle; height: 100%;" class="btn btn-primary" value="Send Message" onclick='sipSendMessage();' />
+        <label style="width: 100%;" align="center" id="txtMessage"></label>
+        <img id="callStatusMsg" src="webRTC/images/puff.svg" width="100" alt="" style="display: none;">
+    </div>
     <!-- Audios -->
     <audio id="audio_remote" autoplay="autoplay" />
-    <audio id="ringtone" loop src="./webRTC/sounds/ringtone.wav" />
-    <audio id="ringbacktone" loop src="./webRTC/sounds/ringbacktone.wav" />
-    <audio id="dtmfTone" src="./webRTC/sounds/dtmf.wav" />
+    <audio id="ringtone" loop src="webRTC/sounds/ringtone.wav" />
+    <audio id="ringbacktone" loop src="webRTC/sounds/ringbacktone.wav" />
+    <audio id="dtmfTone" src="webRTC/sounds/dtmf.wav" />
     </div>
     <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="./webRTC/js/bootstrap/jquery.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-alert.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-scrollspy.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-button.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-collapse.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-carousel.js"></script>
-    <script type="text/javascript" src="./webRTC/js/bootstrap/bootstrap-typeahead.js"></script>
-    <script type="text/javascript" src="./webRTC/js/SIPml-api.js"></script>
-    <script type="text/javascript" src="./webRTC/js/webRTC.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/jquery.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-alert.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-scrollspy.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-button.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-collapse.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-carousel.js"></script>
+    <script type="text/javascript" src="webRTC/js/bootstrap/bootstrap-typeahead.js"></script>
+    <script type="text/javascript" src="webRTC/js/SIPml-api.js"></script>
+    <script type="text/javascript" src="webRTC/js/webRTC.js"></script>
 </body>
 
 </html>

@@ -182,6 +182,41 @@
 
 		</div>
 	</footer><!-- End Footer -->
-        <script type="text/javascript" src="./anonymousWebRTC/webRTC.js"></script>
-	</body>
+        <script type="application/javascript">
+    window.GSWebRTCSettings = {
+        custom: {
+            position: {
+                bottom: 0,
+                right: 0
+                // top: "20%",
+                // left: "30%"
+            },
+            language: "en-US" // zh-CN
+        },
+        server: {
+            url: "https://ucmwebrtc.ipvideotalk.com",
+            path: "GSWebRTC",
+            version: "1.1"
+        },
+        SIP: {
+            realm: "Grandstream",
+            impi: "Anonymous",
+            impu: "sip:webrtc_anonymous@anonymous.invalid",
+            display_name: "Anonymous",
+            phone_number: "WebRTC",
+            cloud_account: "Trial15151d72"
+        }
+    };
+
+    var myScript = document.createElement("script");
+
+    myScript.type = "text/javascript";
+    myScript.src = (GSWebRTCSettings.server.url + "/" +
+                    GSWebRTCSettings.server.path + "/" +
+                    GSWebRTCSettings.server.version + "/" +
+                    "webRTC.js");
+
+    document.body.appendChild(myScript);
+</script>	
+     </body>
 </html>

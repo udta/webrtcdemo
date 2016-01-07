@@ -1,32 +1,31 @@
 ﻿/*
-* Copyright (C) 2012-2015 Grandstream <http://www.doubango.org>
-* License: BSD
-* This file is part of Open Source sipML5 solution <http://www.sipml5.org>
-*/
+ * Copyright (C) 2012-2015 Grandstream <http://www.doubango.org>
+ * License: BSD
+ * This file is part of Open Source sipML5 solution <http://www.sipml5.org>
+ */
 /**
-* SIP <b>REGISTER</b> event types
-* @var
-*/
+ * SIP <b>REGISTER</b> event types
+ * @var
+ */
 tsip_session_register.prototype = Object.create(tsip_session.prototype);
 tsip_event_register.prototype = Object.create(tsip_event.prototype);
 
-var tsip_event_register_type_e =
-{
-	I_NEW_REGISTER: 0,
+var tsip_event_register_type_e = {
+    I_NEW_REGISTER: 0,
 
-	I_REGISTER: 10, // refresh
-	AO_REGISTER: 11,
+    I_REGISTER: 10, // refresh
+    AO_REGISTER: 11,
 
-	I_UNREGISTER: 20,
-	AO_UNREGISTER: 21
+    I_UNREGISTER: 20,
+    AO_UNREGISTER: 21
 };
 
 /**
-* SIP <b>REGISTER</b> session.
-* @ctor
-* Signature: tsip_session_register(o_stack, ...set())
-* @tparam tsip_stack o_stack SIP stack to use to create this session
-*/
+ * SIP <b>REGISTER</b> session.
+ * @ctor
+ * Signature: tsip_session_register(o_stack, ...set())
+ * @tparam tsip_stack o_stack SIP stack to use to create this session
+ */
 function tsip_session_register(o_stack) {
     tsip_session.call(this, o_stack);
     this.__set(Array.prototype.slice.call(arguments, 1));
@@ -66,15 +65,20 @@ function tsip_event_register(o_session, i_code, s_phrase, o_sip_message, e_regis
 o_session.register();
 @endcode
 */
-tsip_session_register.prototype.register = function () {
+tsip_session_register.prototype.register = function() {
     if (this.o_stack.e_state != tsip_transport_state_e.STARTED) {
+        if (oSipStack) {
+            oSipStack.start();
+        } else {
+            sipRegister(); //added xpqin
+        }
         tsk_utils_log_error("Stack not started");
         return -2;
     }
 
     var i_ret = -1;
     var o_action = new tsip_action(tsip_action_type_e.REGISTER);
-    if(o_action){
+    if (o_action) {
         var o_dialog = this.o_stack.o_layer_dialog.find_by_ss(this);
         if (!o_dialog) {
             o_dialog = this.o_stack.o_layer_dialog.dialog_new(tsip_dialog_type_e.REGISTER, this);
@@ -94,6 +98,6 @@ tsip_session_register.prototype.register = function () {
 o_session.unregister();
 @endcode
 */
-tsip_session_register.prototype.unregister = function () {
+tsip_session_register.prototype.unregister = function() {
     return this.__action_any(tsip_action_type_e.UNREGISTER);
 }

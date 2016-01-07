@@ -851,7 +851,6 @@ tmedia_session_jsep01.prototype.__get_lo = function () {
                 (o_iceServers && !o_iceServers.length) ? null : { iceServers: o_iceServers }, // empty array is used to disable STUN/TURN.
                 this.o_media_constraints
         );
-        /*this.o_pc = new __o_peerconnection_class( {iceServers: [{ url: 'stun: :3478'}] } );*/
         this.o_pc.onicecandidate = tmedia_session_jsep01.mozThis ? tmedia_session_jsep01.onIceCandidate : function (o_event) { tmedia_session_jsep01.onIceCandidate(o_event, This); };
         this.o_pc.onnegotiationneeded = tmedia_session_jsep01.mozThis ? tmedia_session_jsep01.onNegotiationNeeded : function (o_event) { tmedia_session_jsep01.onNegotiationNeeded(o_event, This); };
         this.o_pc.onsignalingstatechange = tmedia_session_jsep01.mozThis ? tmedia_session_jsep01.onSignalingstateChange : function (o_event) { tmedia_session_jsep01.onSignalingstateChange(o_event, This); };

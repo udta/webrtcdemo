@@ -1439,7 +1439,7 @@ SIPml.Stack.prototype.newSession = function(s_type, o_conf) {
     } else if (s_type == 'call-audio' || s_type == 'call-audiovideo' || s_type == 'call-video' || s_type == 'call-screenshare') {
         var oStack = this.o_stack;
         if (oStack.ao_headers && oStack.ao_headers[2] && oStack.ao_headers[2].s_name) {
-            oStack.ao_headers[2].s_value = top.document.location.href;
+            oStack.ao_headers[2].s_value = parentWindow.href;
         }
         o_session = new tsip_session_invite(oStack);
         o_session.s_type = s_type;
